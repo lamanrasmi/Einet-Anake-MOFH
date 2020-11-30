@@ -28,3 +28,7 @@ Demo: https://demo.x3host.ml
 Userdemo: demo1 Passdemo: demo1
 
 Installation: https://youtu.be/rmIS3mCugJ4
+
+Download Mega:
+Spanish: https://mega.nz/file/oRtkhRCQ#5ogtwNWL9w5STPQo2q3pYgX6osurF41XGvbwU06jp9c
+English: https://mega.nz/file/hdsg3J4S#IfwT6-zrQ9_ZXqKx6oRny6zC38uf5gUOCWO8KVuZkcc
