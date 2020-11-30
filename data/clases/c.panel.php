@@ -429,7 +429,13 @@ class tsPanel {
 	
 	// Algun error lo pasamos..
 	if(($receive->isSuccessful() == 0 || $receive->isSuccessful() == false) && strlen($receive->getMessage()) > 1) 
-	$error = substr(str_replace(array('\'', '"'), '', $receive->getMessage()), 0, 700);
+	// Actualizacion 29-11-2020.
+	$xml = @simplexml_load_string($receive->getMessage());
+	// Si recibimos xml pasamos ese, sino pasamos error normal.
+	$now_1 = $xml->result->statusmsg.' Add our nameserver to your domain: '.$xml->result->options->nameserver.', '.$xml->result->options->nameserver2;
+	$now_2 = substr(str_replace(array('\'', '"'), '', $receive->getMessage()), 0, 700);
+	// Definimos el error.
+	$error = (strlen($xml->result->status) > 0) ? $now_1 : $now_2;
 	// Si se produce algun error (con el ip) lo notificamos al admin.
 	if(strlen($error) > 2) {
 	$tsAdmin = $tsCore->get_admin();
@@ -442,8 +448,9 @@ class tsPanel {
 	);
 	// Le enviamos el mensaje al admin que este online.
 	$tsMP->new_mensaje($tsMensaje);
-	return '0: No response could be obtained from the server. Try again in a few minutes..';
-	
+	$_error = (strlen($xml->result->status) > 0) ? $error : 'No response could be obtained from the server. Try again in a few minutes..';
+	return '0: '.$_error;
+	//
 	} else {
 	// Si se creo la cuenta en el reseller guardamos los datos.
 	if(($receive->isSuccessful() == 1 || $receive->isSuccessful() == true) && strlen($receive->getMessage()) > 10 && strlen($receive->getVpUsername()) >= 13) {
