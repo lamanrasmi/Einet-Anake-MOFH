@@ -31,6 +31,6 @@ Installation: https://youtu.be/rmIS3mCugJ4
 
 Download Mega:
 
-Spanish: https://mega.nz/file/oRtkhRCQ#5ogtwNWL9w5STPQo2q3pYgX6osurF41XGvbwU06jp9c
+Spanish: https://mega.nz/file/JU1GBBLL#mtOEkOmMAJE_VmDpiGxDpO2DsmftDkhP9Ht3LJjY9Ls
 
-English: https://mega.nz/file/hdsg3J4S#IfwT6-zrQ9_ZXqKx6oRny6zC38uf5gUOCWO8KVuZkcc
+English: https://mega.nz/file/lNsSkbjB#6di-im056k7uTe8xi3TeGyBA1O_gFmH8ng8B08zlyOA
