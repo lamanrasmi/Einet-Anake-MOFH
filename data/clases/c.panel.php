@@ -429,13 +429,7 @@ class tsPanel {
 	
 	// Algun error lo pasamos..
 	if(($receive->isSuccessful() == 0 || $receive->isSuccessful() == false) && strlen($receive->getMessage()) > 1) 
-	// Actualizacion 29-11-2020.
-	$xml = @simplexml_load_string($receive->getMessage());
-	// Si recibimos xml pasamos ese, sino pasamos error normal.
-	$now_1 = $xml->result->statusmsg.' Add our nameserver to your domain: '.$xml->result->options->nameserver.', '.$xml->result->options->nameserver2;
-	$now_2 = substr(str_replace(array('\'', '"'), '', $receive->getMessage()), 0, 700);
-	// Definimos el error.
-	$error = (strlen($xml->result->status) > 0) ? $now_1 : $now_2;
+	$error = substr(str_replace(array('\'', '"'), '', $receive->getMessage()), 0, 700);
 	// Si se produce algun error (con el ip) lo notificamos al admin.
 	if(strlen($error) > 2) {
 	$tsAdmin = $tsCore->get_admin();
@@ -448,8 +442,14 @@ class tsPanel {
 	);
 	// Le enviamos el mensaje al admin que este online.
 	$tsMP->new_mensaje($tsMensaje);
-	$_error = (strlen($xml->result->status) > 0) ? $error : 'No response could be obtained from the server. Try again in a few minutes..';
-	return '0: '.$_error;
+	
+	// Agregada para indicar si el error es por los NS.
+	$xml = @simplexml_load_string($receive->getMessage());
+	$now = preg_match("/The name servers for (.*?) are not set to valid name servers/i", $xml->result->statusmsg);
+	// Si se produce el error de nameserver lo mostramos al user..
+	($now > 0) ? $error = 'Add our nameserver '.$xml->result->options->nameserver.', '.$xml->result->options->nameserver2.' to your domain before creating your hosting account..' : '';
+	// Pasamos el error diciendoselo al usuario.
+	return '0: '.$error;
 	//
 	} else {
 	// Si se creo la cuenta en el reseller guardamos los datos.
